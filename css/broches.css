@@ -369,6 +369,9 @@ main {
     .cerrar-articulo{
         order: 2;
     }
+    #carrito-pantalla{
+        width: 90vw;
+    }
 }
 
 @media (max-width:810px){
@@ -401,10 +404,17 @@ main {
     .contenedor-precios div p{
         font-size: 15px;
     }
+    .contenedor-articulo{
+        height: 420px;
+        width: 80vw;
+    }
 }
 
 @media (max-width: 410px) {
-    .contenedor-articulo h3{
+    /*.contenedor-articulo h3{
         font-size: 25px;
+    }*/
+    .imagen-principal{
+        max-width: 100px;
     }
 }

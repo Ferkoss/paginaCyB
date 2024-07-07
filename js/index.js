@@ -29,7 +29,9 @@ addEventListener("resize", () => {
 });
 
 
-
+function dirigirHTML(direccion){
+    location.assign(direccion)
+}
 
 abrirCarrito.addEventListener("click", () => {
     carritoSombra.style.display = "flex"
