@@ -43,110 +43,14 @@ cerrarCarrito.addEventListener("click", () => {
 
 
 function recarga() {
-
-    recargaDatos()
+    if(localStorage.getItem("datosCompra")){
+        datosCarrito=JSON.parse(localStorage.getItem("datosCompra"))
+        console.log(datosCarrito)
+    }
     cargarCarrito()
 
 }
 
-function recargaDatos() {
-
-    if (localStorage.getItem("datosCompra")) {
-        datosCarrito = JSON.parse(localStorage.getItem("datosCompra"))
-    }
-
-    for (let dato of datos[0]) {
-
-        let divContenedor = document.createElement("div")
-        divContenedor.classList.add("contenedor-articulo")
-        main.appendChild(divContenedor)
-
-        let imgArticulo = document.createElement("img")
-        imgArticulo.src = "../img/imagen-fondo.png"
-        divContenedor.appendChild(imgArticulo)
-
-        let divContenido = document.createElement("div")
-        divContenido.classList.add("contenido-articulo")
-        divContenedor.appendChild(divContenido)
-
-        let h3Contenido = document.createElement("h3")
-        h3Contenido.innerText = dato.nombre
-        divContenido.appendChild(h3Contenido)
-
-        let pContenido = document.createElement("p")
-        pContenido.innerText = dato.tamaño
-        divContenido.appendChild(pContenido)
-
-        let divCantidad = document.createElement("div")
-        divCantidad.classList.add("cantidad-articulo")
-        divContenido.appendChild(divCantidad)
-
-        let labelCant = document.createElement("label")
-        labelCant.setAttribute("for", "cant-" + dato.nombre)
-        labelCant.innerText = "Cantidad:"
-        divCantidad.appendChild(labelCant)
-
-        let inputCant = document.createElement("input")
-        inputCant.type = "number"
-        inputCant.name = "cant-" + dato.nombre
-        inputCant.id = "cant-" + dato.nombre
-        inputCant.min = "1"
-        divCantidad.appendChild(inputCant)
-        inputCant.addEventListener("keyup", () => { cambioCantidad(inputCant) })
-        inputCant.addEventListener("change", () => { cambioCantidad(inputCant) })
-
-        if (dato.colores) {
-            divContenido.classList.add("con-art-select")
-            let divColores = document.createElement("div")
-            divColores.classList.add("color-articulo")
-            divContenido.appendChild(divColores)
-
-            let labelColor = document.createElement("label")
-            labelColor.innerText = "Ingrese su color:  "
-            labelColor.setAttribute("for", "color-" + dato.nombre)
-            divColores.appendChild(labelColor)
-
-            let selectColores = document.createElement("select")
-            selectColores.name = "color-" + dato.nombre
-            selectColores.id = "color-" + dato.nombre
-
-            for (let color of dato.colores) {
-                let opcion = document.createElement("option")
-                opcion.value = color
-                opcion.innerText = color
-                selectColores.appendChild(opcion)
-            }
-            divColores.appendChild(selectColores)
-        }
-
-        let iconoCarrito = document.createElement("i")
-        iconoCarrito.classList.add("fa-solid", "fa-cart-shopping")
-        iconoCarrito.addEventListener("click", () => {
-            if (Number(inputCant.value) <= 0) {
-                inputCant.style.backgroundColor = "red"
-            }
-            else {
-                if (!estaEnCarrito(dato.nombre, inputCant.value,dato.precio)) {
-                    if (dato.colores) {
-                        datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value, color: document.getElementById("color-" + dato.nombre).value })
-                        localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
-                        agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value)
-                    }
-                    else {
-                        datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value })
-                        localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
-                        agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value)
-                    }
-                }
-
-            }
-
-        })
-        divContenido.appendChild(iconoCarrito)
-
-    }
-
-}
 
 function cambioCantidad(input) {
     if (input.value < 0) {

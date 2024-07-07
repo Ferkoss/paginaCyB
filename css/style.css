@@ -401,4 +401,7 @@ footer div ul li a{
     .imagen-principal{
         max-width: 100px;
     }
+    .contenedor-articulo{
+        height: 300px;
+    }
 }
