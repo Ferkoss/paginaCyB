@@ -46,7 +46,7 @@ header i:hover {
 }
 
 .imagen-principal {
-
+    cursor: pointer;
     max-width: 140px;
 }
 
@@ -300,6 +300,54 @@ main {
 
 .carrito-articulo i:hover{
     color: red;
+}
+
+
+
+footer{
+    background-color: black;
+    display: flex;
+    /*height: 400px;*/
+    padding: 30px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.fin{
+    color: #e5e0d8;
+    margin-top:40px ;
+}
+
+.datos-footer{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.datos-footer div {
+    height: 300px;
+    
+}
+
+footer div h3{
+    color: #e5e0d8;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+
+
+footer div ul li{
+    color: #e5e0d8;
+    list-style: none;
+    margin-top: 5px;
+}
+
+footer div ul li a{
+    text-decoration: none;
+    color: #e5e0d8;
+
 }
 
 @media (max-width: 900px) {

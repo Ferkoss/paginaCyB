@@ -46,7 +46,7 @@ header i:hover {
 }
 
 .imagen-principal {
-
+    cursor: pointer;
     max-width: 140px;
 }
 
