@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caramelos y Burbujitas</title>
+    <link rel="stylesheet" href="../css/broches.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+
+<body onload="recarga()">
+    <div id="carrito-sombra">
+        <div id="carrito-pantalla">
+            <div id="cerrar-carrito"><i class="fa-solid fa-xmark"></i></div>
+            <div id="carrito-datos">
+                <div class="carrito-articulo" id="codigo1">
+                    <img src="../img/WhatsApp Image 2023-04-17 at 17.48.40 (5).jpeg" alt="">
+                    
+                        <div class="precio">
+                            <p>Precio por unidad</p>
+                            <p>5345$</p>
+                        </div>
+                    
+                    <div class="articulo-cantidad">
+                        <label for="">Cantidad</label>
+                        <input type="number" min="1">
+                    </div>
+                    <div class="precio">
+                        <p>Precio Total</p>
+                        <p>324234234$</p>
+                    </div>
+                    <div class="cerrar-articulo" id="borrar-codigo1"><i class="fa-solid fa-xmark"></i></div>
+                </div>
+                <div class="carrito-articulo"></div>
+                <div class="carrito-articulo"></div>
+
+            </div>
+            <button type="button">Enviar</button>
+        </div>
+    </div>
+
+
+
+
+
+    <header>
+
+        <img src="../img/CB.jpg" alt="" class="imagen-principal">
+        <h1 class="titulo">Caramelos y Burbujitas</h1>
+        <i class="fa-solid fa-cart-shopping" id="icono-abrir-carrito"></i>
+        <nav>
+            <div class="icono" id="abrir-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <ul class="menu-ul" id="menu-ul">
+                <div id="cerrar-menu"><i class="fa-solid fa-xmark"></i></div>
+                <li class="menu-li"><a href="broches.html">Broches</a></li>
+                <li class="menu-li"><a href="#">Set Infantil</a></li>
+                <li class="menu-li"><a href="#">Colitas de pelo</a></li>
+                <li class="menu-li"><a href="#">Vinchas</a></li>
+                <li class="menu-li"><a href="#">Tic Tac</a></li>
+                <li class="menu-li"><a href="#">Carteras</a></li>
+                <li class="menu-li"><a href="#">Billeteras Damas</a></li>
+                <li class="menu-li"><a href="#">Billeteras Caballeros</a></li>
+                <li class="menu-li"><a href="#">Mochilas</a></li>
+                <li class="menu-li"><a href="#">Riñoneras y Bandoleras</a></li>
+            </ul>
+
+        </nav>
+
+
+
+
+        </nav>
+    </header>
+
+    <main id="main">
+        <div class="contenedor-main" id="cont-main">
+
+
+            <div class="contenedor-articulo">
+                <img src="../img/imagen-fondo.png" alt="">
+                <div class="contenido-articulo">
+                    <h3>Broches</h3>
+                    <p>Broche Grande</p>
+                    <div class="cantidad-articulo">
+                        <label for="cant">Cantidad:</label>
+                        <input type="number">
+                    </div>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+            </div>
+
+            <div class="contenedor-articulo">
+                <img src="../img/imagen-fondo.png" alt="">
+                <div class="contenido-articulo con-art-select">
+                    <h3>Broches</h3>
+                    <p>Broche Grande</p>
+                    <div class="cantidad-articulo">
+                        <label for="cant-">Cantidad:</label>
+                        <input type="number">
+                    </div>
+                    <div class="color-articulo">
+                        <label for="color-Broche.nombre">Ingrese su color:</label>
+                        <select name="color-Broche.nombre" id="color-Broche.nombre">
+                            <option value="" disabled selected>Ingrese su opcion</option>
+                            <option value="">Rojo</option>
+                            <option value="">Amarillo</option>
+                            <option value="">Verde</option>
+                        </select>
+                    </div>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </main>
+
+
+
+</body>
+<script src="../datos/data-broches.js"></script>
+<script src="../js/broches.js"></script>
+</html>

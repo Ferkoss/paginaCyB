@@ -1,0 +1,410 @@
+@font-face {
+    font-family: brittany;
+    src: url(../otros-archivos/BrittanySignature.ttf);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #e5e0d8;
+
+}
+
+header {
+    background-color: black;
+    height: 200px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 3fr 1fr;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-evenly;
+
+}
+
+header i {
+    color: white;
+    font-size: 30px;
+}
+
+header i:hover {
+    transition: color .5s;
+    color: goldenrod;
+}
+
+.titulo {
+    color: white;
+    cursor: pointer;
+    width: 330px;
+}
+
+.imagen-principal {
+
+    max-width: 140px;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    grid-row-start: 2;
+    grid-column: 1/4;
+}
+
+.icono {
+    display: none;
+}
+
+.menu-ul {
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+
+}
+
+.menu-ul div {
+    display: none;
+}
+
+.menu-li a {
+    text-decoration: none;
+    color: white;
+    font-size: max(16px, 1.5vw);
+}
+
+.menu-li a:hover {
+    transition: color .5s;
+    color: goldenrod;
+}
+
+.submenu-ul {
+    list-style: none;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.submenu-li {
+    text-align: start;
+    color: white;
+
+}
+
+
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-main {
+    height: 100%;
+    width: 65%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 30px 5px 20px;
+}
+
+.contenedor-articulo {
+    width: 100%;
+    height: 600px;
+    border: 3px solid black;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 
+    "img img img"
+    "img img img"
+    "cont cont cont"
+    ;
+    
+
+}
+
+.contenido-articulo{
+    display: flex;
+    flex-direction: column;
+    gap :10px;
+    justify-content: space-evenly;
+    align-items: center;
+    grid-area: cont;
+    padding: 30px 0;
+    box-sizing: border-box;
+}
+
+
+.contenido-articulo i{
+    font-size: 40px;
+   cursor: pointer;
+    
+}
+
+
+
+.contenedor-articulo i:hover{
+    color: goldenrod;
+    transition: color .3s;
+}
+
+.cantidad-articulo{
+    display: flex;
+    gap:5px;
+}
+.cantidad-articulo input{
+    max-width: 120px;
+    width: 10vw;
+}
+
+.con-art-select{
+    gap: 3px;
+    
+}
+
+.color-articulo select{
+    max-width: 130px;
+    width: 10vw;
+}
+
+.contenedor-articulo img {
+    width: 100%;
+    height: 100%;
+    border-bottom: 2px solid;
+    grid-area: img;
+    
+}
+
+
+
+.contenedor-articulo h3 {
+    font-size: 30px;
+    text-align: center;
+
+}
+
+#carrito-sombra {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.479);
+    z-index: 1;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+#carrito-pantalla {
+
+    background-color: white;
+    width: 80%;
+    height: 80%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    padding-top: 13px;
+    box-sizing: border-box;
+}
+
+#cerrar-carrito {
+    align-self: flex-end;
+    font-size: 20px;
+    text-align: center;
+}
+
+#cerrar-carrito:hover{
+    color: red;
+}
+
+#carrito-datos {
+
+    width: 90%;
+    height: 80%;
+    border: 1px solid black;
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    overflow-y: auto;
+    padding: 10px;
+
+
+}
+
+.carrito-articulo {
+    border: 2px solid black;
+    border-radius: 30px;
+    width: 90%;
+    height: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.carrito-articulo img {
+    width: 15%;
+    max-width: 140px;
+    min-width: 100px;
+    height: 160px;
+    border-radius: 30px;
+}
+
+
+
+.precio p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.articulo-cantidad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.articulo-cantidad label {
+    text-align: center;
+}
+
+.articulo-cantidad input {
+    width: 50px;
+}
+
+.cerrar-articulo {
+    font-size: 30px;
+}
+
+.carrito-articulo i:hover{
+    color: red;
+}
+
+@media (max-width: 900px) {
+
+    header {
+        grid-template-columns: repeat(4, auto);
+        grid-template-rows: 100%;
+    }
+
+
+
+    nav {
+        width: 25%;
+        grid-row-start: 1;
+        grid-column: 4/5;
+
+    }
+
+    .icono {
+        display: inline;
+    }
+
+    .menu-ul {
+        flex-direction: column;
+        justify-content: flex-start;
+        display: none;
+        position: fixed;
+        width: 50%;
+        height: 100vh;
+        gap: 16px;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 10px 0 0 10px;
+        padding-bottom: 50px;
+        box-sizing: border-box;
+        z-index: 1;
+    }
+
+    .menu-ul div {
+        display: inline;
+        align-self: flex-end;
+        margin: 40px;
+    }
+
+    .menu-li {
+        font-size: 20px;
+        border-bottom: 1px solid black;
+    }
+    .carrito-articulo{
+        height: 400px;
+        flex-direction: column;
+
+    }
+    .carrito-articulo input{
+        width: 100%;
+    }
+    .carrito-articulo img{
+        width: 100%;
+        max-width: 150px;
+        height: 160px;
+        margin: 6px;
+    }
+    .articulo-cantidad{
+        order:1;
+    }
+    .cerrar-articulo{
+        order: 2;
+    }
+}
+
+@media (max-width:810px){
+    .contenedor-main{
+        grid-template-columns: 100%;
+        gap: 20px;
+    }
+    .contenedor-articulo{
+        width:60vw ;
+    }
+    .color-articulo select{
+        width: 25vw;
+    }
+    .cantidad-articulo input{
+        width: 25vw;
+    }
+}
+
+@media (max-width: 560px) {
+    .titulo {
+        font-size: 20px;
+        text-align: center;
+        width: 100px;
+    }
+
+    header i {
+        font-size: 25px;
+    }
+
+    .contenedor-precios div p{
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 410px) {
+    .contenedor-articulo h3{
+        font-size: 25px;
+    }
+}
