@@ -7,6 +7,8 @@ const carritoDatos = document.getElementById("carrito-datos")
 const abrirCarrito = document.getElementById("icono-abrir-carrito")
 const cerrarCarrito = document.getElementById("cerrar-carrito")
 let datosCarrito = []
+let totalCarrito=0
+const h3Total=document.getElementById("carrito-total")
 abrirMenu.addEventListener("click", () => {
     menu.style.display = "flex"
 }
@@ -23,10 +25,11 @@ addEventListener("resize", () => {
     if (Number(innerWidth) > 900) {
         menu.style.display = "flex"
     }
-    else {
+    /*else {
         menu.style.display = "none"
-    }
+    }*/
 });
+
 
 
 
@@ -46,6 +49,7 @@ function recarga() {
 
     recargaDatos()
     cargarCarrito()
+    modificarTotalCarrito()
 
 }
 
@@ -131,11 +135,13 @@ function recargaDatos() {
                         datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value, color: document.getElementById("color-" + dato.nombre).value })
                         localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
                         agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value)
+                        modificarTotalCarrito()
                     }
                     else {
                         datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value })
                         localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
                         agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value)
+                        modificarTotalCarrito()
                     }
                 }
 
@@ -166,6 +172,7 @@ function estaEnCarrito(nombre, cantidad,precio) {
             localStorage.setItem("datosCompra",JSON.stringify(datosCarrito))
             document.getElementById("input-"+nombre).value=cantidad
             document.getElementById("total-"+nombre).innerText="$"+Number(cantidad)*Number(precio)
+            modificarTotalCarrito()
             return true
         }
     }
@@ -216,6 +223,7 @@ function cargarCarrito() {
         }
 
         agregarDatosCarrito(datoCorrespondiente.nombre, datoCorrespondiente.img, datoCorrespondiente.precio, datoCarrito.cantidad)
+        h3Total.innerText="Total: $"+totalCarrito
     }
 }
 
@@ -294,6 +302,7 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
     let p4 = document.createElement("p")
     p4.innerText = "$" + Number(precio) * Number(cantidad)
     p4.id="total-"+nombre
+    p4.setAttribute("class","totalArticulo")
     contenedorPrecioTotal.appendChild(p4)
 
 
@@ -308,7 +317,7 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
     i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre) })
     divBorrar.appendChild(i)
 
-
+    
 }
 
 function eliminarArticulo(divArtuculo, nombre) {
@@ -319,6 +328,7 @@ function eliminarArticulo(divArtuculo, nombre) {
             console.log(nombre)
             datosCarrito = eliminarElemento(datosCarrito, datoEliminar)
             localStorage.setItem("datosCompra", datosCarrito)
+            modificarTotalCarrito()
             break
         }
     }
@@ -326,7 +336,13 @@ function eliminarArticulo(divArtuculo, nombre) {
 
 }
 
-
+function modificarTotalCarrito(){
+    totalCarrito=0
+    for(let totalArticulo of document.querySelectorAll(".totalArticulo")){
+        totalCarrito+=Number(totalArticulo.innerText.slice(1))
+    }
+    h3Total.innerText="Total: $"+totalCarrito
+}
 
 function eliminarElemento(array, elementoEliminar) {
     let nuevoArray = []
@@ -341,10 +357,12 @@ function eliminarElemento(array, elementoEliminar) {
 function modificacionInstantanea(nombre,input, precioUnidad, precioTotal) {
     if (input.value >= 0) {
         precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
+        
         for(let dato of datosCarrito){
             if(dato.id==nombre){
                 dato.cantidad=input.value
                 localStorage.setItem("datosCompra",JSON.stringify(datosCarrito))
+                modificarTotalCarrito()
                 break
             }
         }

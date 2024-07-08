@@ -23,9 +23,9 @@ addEventListener("resize", () => {
     if (Number(innerWidth) > 900) {
         menu.style.display = "flex"
     }
-    else {
+    /*else {
         menu.style.display = "none"
-    }
+    }*/
 });
 
 

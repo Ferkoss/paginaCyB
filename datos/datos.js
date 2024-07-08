@@ -1,5 +1,5 @@
 const datos = [
-    [
+    [   /*-------------------Broches---------------------- */
         {
             nombre: "B7/01",
             tamaño: "Grande",

@@ -249,7 +249,25 @@ main {
     font-size: 30px;
 }
 
+#carrito-total{
+    margin: 10px 0;
+}
 
+#enviar-carrito{
+    background-color: white;
+    width: 90px;
+    height: 25px;
+    font-size: 15px;
+    border: 3px solid black;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+#enviar-carrito:hover{
+    color: goldenrod;
+    border-color: goldenrod;
+    transition: color .3s,border-color .3s;
+}
 
 footer{
     background-color: black;
