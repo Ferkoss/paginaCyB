@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body onload="recarga()">
+
+
+    <header>
+
+        <img src="../img/otros/CB.jpg" alt="" class="imagen-principal" onclick="location.assign(`index.html`)">
+        <h1 class="titulo" onclick="location.assign(`index.html`)">Caramelos y Burbujitas</h1>
+        <i class="fa-solid fa-cart-shopping" id="icono-abrir-carrito"></i>
+        <nav>
+            <div class="icono" id="abrir-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <ul class="menu-ul" id="menu-ul">
+                <div id="cerrar-menu"><i class="fa-solid fa-xmark"></i></div>
+                <li class="menu-li"><a href="broches.html">Broches</a></li>
+                <li class="menu-li"><a href="#">Set Infantil</a></li>
+                <li class="menu-li"><a href="#">Colitas de pelo</a></li>
+                <li class="menu-li"><a href="#">Vinchas</a></li>
+                <li class="menu-li"><a href="#">Tic Tac</a></li>
+                <li class="menu-li"><a href="#">Carteras</a></li>
+                <li class="menu-li"><a href="#">Billeteras Damas</a></li>
+                <li class="menu-li"><a href="#">Billeteras Caballeros</a></li>
+                <li class="menu-li"><a href="#">Mochilas</a></li>
+                <li class="menu-li"><a href="#">Riñoneras y Bandoleras</a></li>
+            </ul>
+
+        </nav>
+
+
+
+
+        </nav>
+    </header>
+
+    <main id="main">
+        <div class="cabecera">
+            <h3 class="nombre">Nombre</h3>
+            <h3 class="cantidad">Cantidad</h3>
+            <h3 class="precio">Precio Final</h3>
+        </div>
+        <div class="div-articulos" id="cont-articulos">
+            <!--
+        <article>
+            <p class="nombre">B7/01</p>
+            <p class="cantidad">100</p>
+            <p class="precio">$1020000</p>
+        </article>
+
+        <article>
+            <p class="nombre">B7/02</p>
+            <p class="cantidad">302</p>
+            <p class="precio">$1350000</p>
+        </article>
+        <article>
+            <p class="nombre">B7/01</p>
+            <p class="cantidad">100</p>
+            <p class="precio">$1020000</p>
+        </article>
+
+        <article>
+            <p class="nombre">B7/02</p>
+            <p class="cantidad">302</p>
+            <p class="precio">$1350000</p>
+        </article>
+        <article>
+            <p class="nombre">B7/01</p>
+            <p class="cantidad">100</p>
+            <p class="precio">$1020000</p>
+        </article>
+
+        <article>
+            <p class="nombre">B7/02</p>
+            <p class="cantidad">302</p>
+            <p class="precio">$13500000</p>
+        </article>
+        -->
+        </div>
+        <div class="pie-main">
+            <b>Total:</b>
+            <p id="total">$10000000</p>
+        </div>
+
+    </main>
+    <div class="div-boton"><button id="botonSiguiente">Siguiente</button></div>
+
+</body>
+<script src="../datos/datos.js"></script>
+<script src="../js/carrito.js"></script>
+</htmp

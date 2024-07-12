@@ -21,7 +21,7 @@ header {
     padding: 10px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 3fr 1fr;
     align-items: center;
     justify-items: center;
@@ -42,7 +42,8 @@ header i:hover {
 .titulo {
     color: white;
     cursor: pointer;
-    width: 330px;
+    width: 100%;
+    text-align: center;
 }
 
 .imagen-principal {
@@ -68,17 +69,23 @@ nav {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
-
+    gap: 10px;
 }
 
 .menu-ul div {
     display: none;
 }
 
+.menu-li{
+    
+    text-align: center;
+}
+
 .menu-li a {
     text-decoration: none;
     color: white;
-    font-size: max(16px, 1.5vw);
+    font-size: max(16px,1.5vw);
+    
 }
 
 .menu-li a:hover {
@@ -178,11 +185,18 @@ main {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
+    padding-top: 13px;
     box-sizing: border-box;
 }
 
 #cerrar-carrito {
     align-self: flex-end;
+    font-size: 20px;
+    text-align: center;
+}
+
+#cerrar-carrito:hover{
+    color: red;
 }
 
 #carrito-datos {
@@ -216,7 +230,17 @@ main {
     width: 15%;
     max-width: 140px;
     min-width: 100px;
+    height: 160px;
     border-radius: 30px;
+}
+
+.precio p {
+    text-align: center;
+    font-size: 20px;
+}
+
+.carrito-articulo i:hover{
+    color: red;
 }
 
 .contenedor-precios {
@@ -252,6 +276,8 @@ main {
 #carrito-total{
     margin: 10px 0;
 }
+
+
 
 #enviar-carrito{
     background-color: white;
@@ -363,7 +389,7 @@ footer div ul li a{
         border-bottom: 1px solid black;
     }
     .carrito-articulo{
-        min-height: 300px;
+        height: 400px;
         flex-direction: column;
 
     }
@@ -373,8 +399,14 @@ footer div ul li a{
     .carrito-articulo img{
         width: 100%;
         max-width: 150px;
-        height: 55%;
+        height: 160px;
         margin: 6px;
+    }
+    .articulo-cantidad{
+        order:1;
+    }
+    .cerrar-articulo{
+        order: 2;
     }
     #carrito-pantalla{
         width: 90vw;

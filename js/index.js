@@ -7,6 +7,9 @@ const carritoDatos = document.getElementById("carrito-datos")
 const abrirCarrito = document.getElementById("icono-abrir-carrito")
 const cerrarCarrito = document.getElementById("cerrar-carrito")
 let datosCarrito = []
+let totalCarrito = 0
+const h3Total = document.getElementById("carrito-total")
+const enviarCarrito = document.getElementById("enviar-carrito")
 abrirMenu.addEventListener("click", () => {
     menu.style.display = "flex"
 }
@@ -29,7 +32,7 @@ addEventListener("resize", () => {
 });
 
 
-function dirigirHTML(direccion){
+function dirigirHTML(direccion) {
     location.assign(direccion)
 }
 
@@ -45,11 +48,12 @@ cerrarCarrito.addEventListener("click", () => {
 
 
 function recarga() {
-    if(localStorage.getItem("datosCompra")){
-        datosCarrito=JSON.parse(localStorage.getItem("datosCompra"))
+    if (localStorage.getItem("datosCompra")) {
+        datosCarrito = JSON.parse(localStorage.getItem("datosCompra"))
         console.log(datosCarrito)
     }
     cargarCarrito()
+    modificarTotalCarrito()
 
 }
 
@@ -65,14 +69,29 @@ function cambioCantidad(input) {
 
 
 
-function estaEnCarrito(nombre, cantidad,precio) {
+function estaEnCarrito(nombre, cantidad, precio, color) {
     for (let dato of datosCarrito) {
-        if (dato.id == nombre) {
-            dato.cantidad = cantidad
-            localStorage.setItem("datosCompra",JSON.stringify(datosCarrito))
-            document.getElementById("input-"+nombre).value=cantidad
-            document.getElementById("total-"+nombre).innerText="$"+Number(cantidad)*Number(precio)
-            return true
+        if (dato.color) {
+
+            if (dato.id == nombre && dato.color == color) {
+                dato.cantidad = cantidad
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                document.getElementById("input-" + nombre + "-" + color).value = cantidad
+                document.getElementById("total-" + nombre + "-" + color).innerText = "$" + Number(cantidad) * Number(precio)
+                modificarTotalCarrito()
+                return true
+            }
+        }
+        else {
+
+            if (dato.id == nombre) {
+                dato.cantidad = cantidad
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                document.getElementById("input-" + nombre).value = cantidad
+                document.getElementById("total-" + nombre).innerText = "$" + Number(cantidad) * Number(precio)
+                modificarTotalCarrito()
+                return true
+            }
         }
     }
     false
@@ -120,9 +139,23 @@ function cargarCarrito() {
                 }
             }
         }
-
-        agregarDatosCarrito(datoCorrespondiente.nombre, datoCorrespondiente.img, datoCorrespondiente.precio, datoCarrito.cantidad)
+        if (datoCarrito.color) {
+            agregarDatosCarrito(datoCorrespondiente.nombre, "../img/" + sacarLetra(datoCorrespondiente.nombre, "/") + "/" + datoCarrito.color + ".jpg", datoCorrespondiente.precio, datoCarrito.cantidad, datoCarrito.color)
+        }
+        else {
+            agregarDatosCarrito(datoCorrespondiente.nombre, datoCorrespondiente.img, datoCorrespondiente.precio, datoCarrito.cantidad, null)
+        }
     }
+}
+
+function sacarLetra(string, letraEliminar) {
+    let nuevoString = ""
+    for (let letra of string) {
+        if (letra != letraEliminar) {
+            nuevoString += letra
+        }
+    }
+    return nuevoString
 }
 
 /*<div class="carrito-articulo" id="codigo1">
@@ -145,7 +178,7 @@ function cargarCarrito() {
                 </div> */
 
 
-function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
+function agregarDatosCarrito(nombre, imagen, precio, cantidad, color) {
     let divArtuculo = document.createElement("div")
     divArtuculo.classList.add("carrito-articulo")
     divArtuculo.id = nombre
@@ -174,19 +207,38 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
 
     let label = document.createElement("label")
     label.innerText = "Cantidad"
-    label.setAttribute("for", "input-" + nombre)
+    if (color) {
+        label.setAttribute("for", "input-" + nombre + "-" + color)
+    }
+    else {
+        label.setAttribute("for", "input-" + nombre)
+    }
     contenedorCantidad.appendChild(label)
 
     let input = document.createElement("input")
     input.type = "number"
     input.min = "1"
-    input.id = "input-" + nombre
-    input.name = "input-" + nombre
+
+    if (color) {
+        input.id = "input-" + nombre + "-" + color
+        input.name = "input-" + nombre + "-" + color
+    }
+    else {
+        input.id = "input-" + nombre
+        input.name = "input-" + nombre
+    }
+
+
     input.value = cantidad
     contenedorCantidad.appendChild(input)
-    input.addEventListener("keyup", () => { cambioCantidad(input); modificacionInstantanea(input, precio, p4) })
-    input.addEventListener("change", () => { cambioCantidad(input); modificacionInstantanea(input, precio, p4) })
-
+    if (color) {
+        input.addEventListener("keyup", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, color) })
+        input.addEventListener("change", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, color) })
+    }
+    else {
+        input.addEventListener("keyup", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, null) })
+        input.addEventListener("change", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, null) })
+    }
 
 
     let contenedorPrecioTotal = document.createElement("div")
@@ -199,7 +251,13 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
 
     let p4 = document.createElement("p")
     p4.innerText = "$" + Number(precio) * Number(cantidad)
-    p4.id="total-"+nombre
+    if (color) {
+        p4.id = "total-" + nombre + "-" + color
+    }
+    else {
+        p4.id = "total-" + nombre
+    }
+    p4.setAttribute("class", "totalArticulo")
     contenedorPrecioTotal.appendChild(p4)
 
 
@@ -211,25 +269,50 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
 
     let i = document.createElement("i")
     i.classList.add("fa-solid", "fa-xmark")
-    i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre) })
+    if (color) {
+        i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre, color) })
+    }
+    else {
+        i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre, null) })
+    }
     divBorrar.appendChild(i)
 
 
 }
 
-function eliminarArticulo(divArtuculo, nombre) {
+function eliminarArticulo(divArtuculo, nombre, color) {
     divArtuculo.remove()
-
-    for (datoEliminar of datosCarrito) {
-        if (datoEliminar.id == nombre) {
-            console.log(nombre)
-            datosCarrito = eliminarElemento(datosCarrito, datoEliminar)
-            localStorage.setItem("datosCompra", datosCarrito)
-            break
+    if (color) {
+        for (datoEliminar of datosCarrito) {
+            if (datoEliminar.id == nombre && datoEliminar.color == color) {
+                console.log(nombre)
+                datosCarrito = eliminarElemento(datosCarrito, datoEliminar, color)
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                modificarTotalCarrito()
+                break
+            }
         }
     }
+    else {
+        for (datoEliminar of datosCarrito) {
+            if (datoEliminar.id == nombre) {
+                console.log(nombre)
+                datosCarrito = eliminarElemento(datosCarrito, datoEliminar, null)
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                modificarTotalCarrito()
+                break
+            }
+        }
+    }
+}
 
 
+function modificarTotalCarrito() {
+    totalCarrito = 0
+    for (let totalArticulo of document.querySelectorAll(".totalArticulo")) {
+        totalCarrito += Number(totalArticulo.innerText.slice(1))
+    }
+    h3Total.innerText = "Total: $" + totalCarrito
 }
 
 
@@ -244,9 +327,34 @@ function eliminarElemento(array, elementoEliminar) {
     return nuevoArray
 }
 
-function modificacionInstantanea(input, precioUnidad, precioTotal) {
-    if (input.value >= 0) {
-        precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
+function modificacionInstantanea(nombre, input, precioUnidad, precioTotal, color) {
+    if (color) {
+        if (input.value >= 0) {
+            precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
+            for (let dato of datosCarrito) {
+                if (dato.id == nombre && dato.color == color) {
+                    /*alert(dato.color+" "+color)*/
+                    dato.cantidad = input.value
+                    localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                    modificarTotalCarrito()
+                    break
+                }
+            }
+        }
+    }
+    else {
+        if (input.value >= 0) {
+            precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
+
+            for (let dato of datosCarrito) {
+                if (dato.id == nombre) {
+                    dato.cantidad = input.value
+                    localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                    modificarTotalCarrito()
+                    break
+                }
+            }
+        }
     }
 }
 
@@ -268,3 +376,51 @@ function modificacionInstantanea(input, precioUnidad, precioTotal) {
                     </div>
                     <div class="cerrar-articulo" id="borrar-codigo1"><i class="fa-solid fa-xmark"></i></div>
                 </div> */
+
+enviarCarrito.addEventListener("click", () => {
+
+
+    if (validacionCarrito()) {
+        location.assign("../html/carrito.html")
+    }
+})
+
+
+function validacionCarrito() {
+
+    if (carritoDatos.children.length === 0) {
+
+        return false
+    }
+
+    if (datosCarrito.length === 0) {
+        return false
+    }
+
+
+    if (JSON.stringify(datosCarrito) != localStorage.getItem("datosCompra")) {
+        return false
+    }
+
+    for (let datoLocal of JSON.parse(localStorage.getItem("datosCompra"))) {
+        if (Number(datoLocal.cantidad) <= 0) {
+            return false
+        }
+    }
+
+    for (let datoCarrito of datosCarrito) {
+        if (datoCarrito.color) {
+            if (datoCarrito.cantidad <= 0 || document.getElementById("input-" + datoCarrito.id + "-" + datoCarrito.color).value <= 0) {
+                return false
+            }
+        }
+        else {
+            if (datoCarrito.cantidad <= 0 || document.getElementById("input-" + datoCarrito.id).value <= 0) {
+                return false
+            }
+        }
+    }
+
+
+    return true
+}

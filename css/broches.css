@@ -21,7 +21,7 @@ header {
     padding: 10px;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 3fr 1fr;
     align-items: center;
     justify-items: center;
@@ -42,7 +42,9 @@ header i:hover {
 .titulo {
     color: white;
     cursor: pointer;
-    width: 330px;
+    width: 100%;
+    text-align: center;
+    
 }
 
 .imagen-principal {
@@ -73,6 +75,11 @@ nav {
 
 .menu-ul div {
     display: none;
+}
+
+.menu-li{
+    
+    text-align: center;
 }
 
 .menu-li a {

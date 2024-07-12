@@ -7,8 +7,10 @@ const carritoDatos = document.getElementById("carrito-datos")
 const abrirCarrito = document.getElementById("icono-abrir-carrito")
 const cerrarCarrito = document.getElementById("cerrar-carrito")
 let datosCarrito = []
-let totalCarrito=0
-const h3Total=document.getElementById("carrito-total")
+let totalCarrito = 0
+const h3Total = document.getElementById("carrito-total")
+const enviarCarrito = document.getElementById("enviar-carrito")
+
 abrirMenu.addEventListener("click", () => {
     menu.style.display = "flex"
 }
@@ -61,95 +63,127 @@ function recargaDatos() {
 
     for (let dato of datos[0]) {
 
-        let divContenedor = document.createElement("div")
-        divContenedor.classList.add("contenedor-articulo")
-        main.appendChild(divContenedor)
+        if (dato.stock) {
 
-        let imgArticulo = document.createElement("img")
-        imgArticulo.src = "../img/imagen-fondo.png"
-        divContenedor.appendChild(imgArticulo)
+            let divContenedor = document.createElement("div")
+            divContenedor.classList.add("contenedor-articulo")
+            main.appendChild(divContenedor)
 
-        let divContenido = document.createElement("div")
-        divContenido.classList.add("contenido-articulo")
-        divContenedor.appendChild(divContenido)
+            let imgArticulo = document.createElement("img")
+            imgArticulo.src = dato.img
+            divContenedor.appendChild(imgArticulo)
 
-        let h3Contenido = document.createElement("h3")
-        h3Contenido.innerText = dato.nombre
-        divContenido.appendChild(h3Contenido)
+            let divContenido = document.createElement("div")
+            divContenido.classList.add("contenido-articulo")
+            divContenedor.appendChild(divContenido)
 
-        let pContenido = document.createElement("p")
-        pContenido.innerText = dato.tamaño
-        divContenido.appendChild(pContenido)
+            let h3Contenido = document.createElement("h3")
+            h3Contenido.innerText = dato.nombre
+            divContenido.appendChild(h3Contenido)
 
-        let divCantidad = document.createElement("div")
-        divCantidad.classList.add("cantidad-articulo")
-        divContenido.appendChild(divCantidad)
+            let pContenido = document.createElement("p")
+            pContenido.innerText = dato.tamaño
+            divContenido.appendChild(pContenido)
 
-        let labelCant = document.createElement("label")
-        labelCant.setAttribute("for", "cant-" + dato.nombre)
-        labelCant.innerText = "Cantidad:"
-        divCantidad.appendChild(labelCant)
+            let divCantidad = document.createElement("div")
+            divCantidad.classList.add("cantidad-articulo")
+            divContenido.appendChild(divCantidad)
 
-        let inputCant = document.createElement("input")
-        inputCant.type = "number"
-        inputCant.name = "cant-" + dato.nombre
-        inputCant.id = "cant-" + dato.nombre
-        inputCant.min = "1"
-        divCantidad.appendChild(inputCant)
-        inputCant.addEventListener("keyup", () => { cambioCantidad(inputCant) })
-        inputCant.addEventListener("change", () => { cambioCantidad(inputCant) })
+            let labelCant = document.createElement("label")
+            labelCant.setAttribute("for", "cant-" + dato.nombre)
+            labelCant.innerText = "Cantidad:"
+            divCantidad.appendChild(labelCant)
 
-        if (dato.colores) {
-            divContenido.classList.add("con-art-select")
-            let divColores = document.createElement("div")
-            divColores.classList.add("color-articulo")
-            divContenido.appendChild(divColores)
+            let inputCant = document.createElement("input")
+            inputCant.type = "number"
+            inputCant.name = "cant-" + dato.nombre
+            inputCant.id = "cant-" + dato.nombre
+            inputCant.min = "1"
+            divCantidad.appendChild(inputCant)
+            inputCant.addEventListener("keyup", () => { cambioCantidad(inputCant) })
+            inputCant.addEventListener("change", () => { cambioCantidad(inputCant) })
 
-            let labelColor = document.createElement("label")
-            labelColor.innerText = "Ingrese su color:  "
-            labelColor.setAttribute("for", "color-" + dato.nombre)
-            divColores.appendChild(labelColor)
+            if (dato.colores) {
+                divContenido.classList.add("con-art-select")
+                let divColores = document.createElement("div")
+                divColores.classList.add("color-articulo")
+                divContenido.appendChild(divColores)
 
-            let selectColores = document.createElement("select")
-            selectColores.name = "color-" + dato.nombre
-            selectColores.id = "color-" + dato.nombre
+                let labelColor = document.createElement("label")
+                labelColor.innerText = "Ingrese su color:  "
+                labelColor.setAttribute("for", "color-" + dato.nombre)
+                divColores.appendChild(labelColor)
 
-            for (let color of dato.colores) {
-                let opcion = document.createElement("option")
-                opcion.value = color
-                opcion.innerText = color
-                selectColores.appendChild(opcion)
+                let selectColores = document.createElement("select")
+                selectColores.name = "color-" + dato.nombre
+                selectColores.id = "color-" + dato.nombre
+
+                let primerOpcion = document.createElement("option")
+                primerOpcion.innerText = "Ingrese su opción"
+                primerOpcion.value = ""
+                selectColores.appendChild(primerOpcion)
+
+                selectColores.addEventListener("change", () => { cambioImagen(selectColores, imgArticulo, dato.img, dato.nombre) })
+
+                for (let color of dato.colores) {
+                    let opcion = document.createElement("option")
+                    opcion.value = color
+                    opcion.innerText = color
+                    selectColores.appendChild(opcion)
+                }
+                divColores.appendChild(selectColores)
             }
-            divColores.appendChild(selectColores)
-        }
 
-        let iconoCarrito = document.createElement("i")
-        iconoCarrito.classList.add("fa-solid", "fa-cart-shopping")
-        iconoCarrito.addEventListener("click", () => {
-            if (Number(inputCant.value) <= 0) {
-                inputCant.style.backgroundColor = "red"
-            }
-            else {
-                if (!estaEnCarrito(dato.nombre, inputCant.value,dato.precio)) {
+            let iconoCarrito = document.createElement("i")
+            iconoCarrito.classList.add("fa-solid", "fa-cart-shopping")
+            iconoCarrito.addEventListener("click", () => {
+                let bandera = false
+                if (document.getElementById("color-" + dato.nombre)) {
+                    if (document.getElementById("color-" + dato.nombre).value == "") {
+                        bandera = true
+                    }
+                }
+                if (Number(inputCant.value) <= 0 || bandera) {
+                    if (Number(inputCant.value) <= 0) {
+                        inputCant.style.backgroundColor = "red"
+                    }
+                    if (bandera) {
+                        if (document.getElementById("color-" + dato.nombre).value == "") {
+                            document.getElementById("color-" + dato.nombre).style.backgroundColor = "red"
+                        }
+                    }
+
+                }
+
+                else {
                     if (dato.colores) {
-                        datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value, color: document.getElementById("color-" + dato.nombre).value })
-                        localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
-                        agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value)
-                        modificarTotalCarrito()
+                        if (!estaEnCarrito(dato.nombre, inputCant.value, dato.precio, document.getElementById("color-" + dato.nombre).value)) {
+                            datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value, color: document.getElementById("color-" + dato.nombre).value })
+                            localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                            agregarDatosCarrito(dato.nombre, imgArticulo.src, dato.precio, inputCant.value, document.getElementById("color-" + dato.nombre).value)
+                            modificarTotalCarrito()
+                        }
                     }
                     else {
-                        datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value })
-                        localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
-                        agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value)
-                        modificarTotalCarrito()
+                        if (!estaEnCarrito(dato.nombre, inputCant.value, dato.precio, null)) {
+                            datosCarrito.push({ id: dato.nombre, cantidad: inputCant.value })
+                            localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                            agregarDatosCarrito(dato.nombre, dato.img, dato.precio, inputCant.value, null)
+                            modificarTotalCarrito()
+                        }
                     }
                 }
 
+
             }
 
-        })
-        divContenido.appendChild(iconoCarrito)
+            )
 
+            divContenido.appendChild(iconoCarrito)
+
+
+
+        }
     }
 
 }
@@ -165,15 +199,49 @@ function cambioCantidad(input) {
 
 
 
-function estaEnCarrito(nombre, cantidad,precio) {
+function cambioImagen(selectColores, imgArticulo, datoImg, nombre) {
+    selectColores.style.backgroundColor = "white"
+    if (selectColores.value == "") {
+        imgArticulo.src = datoImg
+    }
+    else {
+        imgArticulo.src = "../img/" + sacarLetra(nombre, "/") + "/" + selectColores.value + ".jpg"
+    }
+}
+
+function sacarLetra(string, letraEliminar) {
+    let nuevoString = ""
+    for (let letra of string) {
+        if (letra != letraEliminar) {
+            nuevoString += letra
+        }
+    }
+    return nuevoString
+}
+
+function estaEnCarrito(nombre, cantidad, precio, color) {
     for (let dato of datosCarrito) {
-        if (dato.id == nombre) {
-            dato.cantidad = cantidad
-            localStorage.setItem("datosCompra",JSON.stringify(datosCarrito))
-            document.getElementById("input-"+nombre).value=cantidad
-            document.getElementById("total-"+nombre).innerText="$"+Number(cantidad)*Number(precio)
-            modificarTotalCarrito()
-            return true
+        if (dato.color) {
+
+            if (dato.id == nombre && dato.color == color) {
+                dato.cantidad = cantidad
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                document.getElementById("input-" + nombre + "-" + color).value = cantidad
+                document.getElementById("total-" + nombre + "-" + color).innerText = "$" + Number(cantidad) * Number(precio)
+                modificarTotalCarrito()
+                return true
+            }
+        }
+        else {
+
+            if (dato.id == nombre) {
+                dato.cantidad = cantidad
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                document.getElementById("input-" + nombre).value = cantidad
+                document.getElementById("total-" + nombre).innerText = "$" + Number(cantidad) * Number(precio)
+                modificarTotalCarrito()
+                return true
+            }
         }
     }
     false
@@ -221,9 +289,14 @@ function cargarCarrito() {
                 }
             }
         }
+        if (datoCarrito.color) {
 
-        agregarDatosCarrito(datoCorrespondiente.nombre, datoCorrespondiente.img, datoCorrespondiente.precio, datoCarrito.cantidad)
-        h3Total.innerText="Total: $"+totalCarrito
+            agregarDatosCarrito(datoCorrespondiente.nombre, "../img/" + sacarLetra(datoCorrespondiente.nombre, "/") + "/" + datoCarrito.color + ".jpg", datoCorrespondiente.precio, datoCarrito.cantidad, datoCarrito.color)
+        }
+        else {
+            agregarDatosCarrito(datoCorrespondiente.nombre, datoCorrespondiente.img, datoCorrespondiente.precio, datoCarrito.cantidad, null)
+        }
+        /*h3Total.innerText = "Total: $" + totalCarrito*/
     }
 }
 
@@ -247,7 +320,7 @@ function cargarCarrito() {
                 </div> */
 
 
-function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
+function agregarDatosCarrito(nombre, imagen, precio, cantidad, color) {
     let divArtuculo = document.createElement("div")
     divArtuculo.classList.add("carrito-articulo")
     divArtuculo.id = nombre
@@ -276,19 +349,36 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
 
     let label = document.createElement("label")
     label.innerText = "Cantidad"
-    label.setAttribute("for", "input-" + nombre)
+    if (color) {
+        label.setAttribute("for", "input-" + nombre + "-" + color)
+    }
+    else {
+        label.setAttribute("for", "input-" + nombre)
+    }
     contenedorCantidad.appendChild(label)
 
     let input = document.createElement("input")
     input.type = "number"
     input.min = "1"
-    input.id = "input-" + nombre
+
+    if (color) {
+        input.id = "input-" + nombre + "-" + color
+    }
+    else {
+        input.id = "input-" + nombre
+    }
+
     input.name = "input-" + nombre
     input.value = cantidad
     contenedorCantidad.appendChild(input)
-    input.addEventListener("keyup", () => { cambioCantidad(input); modificacionInstantanea(nombre,input, precio, p4) })
-    input.addEventListener("change", () => { cambioCantidad(input); modificacionInstantanea(nombre,input, precio, p4) })
-
+    if (color) {
+        input.addEventListener("keyup", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, color) })
+        input.addEventListener("change", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, color) })
+    }
+    else {
+        input.addEventListener("keyup", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, null) })
+        input.addEventListener("change", () => { cambioCantidad(input); modificacionInstantanea(nombre, input, precio, p4, null) })
+    }
 
 
     let contenedorPrecioTotal = document.createElement("div")
@@ -301,8 +391,13 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
 
     let p4 = document.createElement("p")
     p4.innerText = "$" + Number(precio) * Number(cantidad)
-    p4.id="total-"+nombre
-    p4.setAttribute("class","totalArticulo")
+    if (color) {
+        p4.id = "total-" + nombre + "-" + color
+    }
+    else {
+        p4.id = "total-" + nombre
+    }
+    p4.setAttribute("class", "totalArticulo")
     contenedorPrecioTotal.appendChild(p4)
 
 
@@ -314,56 +409,94 @@ function agregarDatosCarrito(nombre, imagen, precio, cantidad) {
 
     let i = document.createElement("i")
     i.classList.add("fa-solid", "fa-xmark")
-    i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre) })
+    if (color) {
+        i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre, color) })
+    }
+    else {
+        i.addEventListener("click", () => { eliminarArticulo(divArtuculo, nombre, null) })
+    }
     divBorrar.appendChild(i)
 
-    
+
 }
 
-function eliminarArticulo(divArtuculo, nombre) {
-    divArtuculo.remove()
+function eliminarArticulo(divArtuculo, nombre, color) {
+    if (color) {
 
-    for (datoEliminar of datosCarrito) {
-        if (datoEliminar.id == nombre) {
-            console.log(nombre)
-            datosCarrito = eliminarElemento(datosCarrito, datoEliminar)
-            localStorage.setItem("datosCompra", datosCarrito)
-            modificarTotalCarrito()
-            break
+        divArtuculo.remove()
+        for (datoEliminar of datosCarrito) {
+            if (datoEliminar.id == nombre && datoEliminar.color == color) {
+                console.log(nombre)
+                datosCarrito = eliminarElemento(datosCarrito, datoEliminar)
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                modificarTotalCarrito()
+                break
+            }
         }
+
+
     }
+    else {
+        divArtuculo.remove()
+        for (datoEliminar of datosCarrito) {
+            if (datoEliminar.id == nombre) {
+                console.log(nombre)
+                datosCarrito = eliminarElemento(datosCarrito, datoEliminar)
+                localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                modificarTotalCarrito()
+                break
+            }
+        }
 
-
+    }
 }
 
-function modificarTotalCarrito(){
-    totalCarrito=0
-    for(let totalArticulo of document.querySelectorAll(".totalArticulo")){
-        totalCarrito+=Number(totalArticulo.innerText.slice(1))
+function modificarTotalCarrito() {
+    totalCarrito = 0
+    for (let totalArticulo of document.querySelectorAll(".totalArticulo")) {
+        totalCarrito += Number(totalArticulo.innerText.slice(1))
     }
-    h3Total.innerText="Total: $"+totalCarrito
+    h3Total.innerText = "Total: $" + totalCarrito
 }
 
 function eliminarElemento(array, elementoEliminar) {
     let nuevoArray = []
+
     for (let elemento of array) {
         if (elemento != elementoEliminar) {
             nuevoArray.push(elemento)
         }
     }
+
     return nuevoArray
 }
 
-function modificacionInstantanea(nombre,input, precioUnidad, precioTotal) {
-    if (input.value >= 0) {
-        precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
-        
-        for(let dato of datosCarrito){
-            if(dato.id==nombre){
-                dato.cantidad=input.value
-                localStorage.setItem("datosCompra",JSON.stringify(datosCarrito))
-                modificarTotalCarrito()
-                break
+function modificacionInstantanea(nombre, input, precioUnidad, precioTotal, color) {
+    if (color) {
+        if (input.value >= 0) {
+            precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
+            for (let dato of datosCarrito) {
+                if (dato.id == nombre && dato.color == color) {
+                    /*alert(dato.color+" "+color)*/
+                    dato.cantidad = input.value
+                    localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                    modificarTotalCarrito()
+                    break
+                }
+            }
+        }
+    }
+    else {
+        if (input.value >= 0) {
+            precioTotal.innerText = "$" + Number(input.value) * Number(precioUnidad)
+
+            for (let dato of datosCarrito) {
+                if (dato.id == nombre) {
+                    dato.cantidad = input.value
+                    localStorage.setItem("datosCompra", JSON.stringify(datosCarrito))
+                    modificarTotalCarrito()
+                    break
+                }
             }
         }
     }
@@ -387,3 +520,54 @@ function modificacionInstantanea(nombre,input, precioUnidad, precioTotal) {
                     </div>
                     <div class="cerrar-articulo" id="borrar-codigo1"><i class="fa-solid fa-xmark"></i></div>
                 </div> */
+
+
+
+
+enviarCarrito.addEventListener("click", () => {
+
+
+    if (validacionCarrito()) {
+        location.assign("../html/carrito.html")
+    }
+})
+
+
+function validacionCarrito() {
+
+    if (carritoDatos.children.length === 0) {
+
+        return false
+    }
+
+    if (datosCarrito.length === 0) {
+        return false
+    }
+
+
+    if (JSON.stringify(datosCarrito) != localStorage.getItem("datosCompra")) {
+        return false
+    }
+
+    for (let datoLocal of JSON.parse(localStorage.getItem("datosCompra"))) {
+        if (Number(datoLocal.cantidad) <= 0) {
+            return false
+        }
+    }
+
+    for (let datoCarrito of datosCarrito) {
+        if (datoCarrito.color) {
+            if (datoCarrito.cantidad <= 0 || document.getElementById("input-" + datoCarrito.id + "-" + datoCarrito.color).value <= 0) {
+                return false
+            }
+        }
+        else {
+            if (datoCarrito.cantidad <= 0 || document.getElementById("input-" + datoCarrito.id).value <= 0) {
+                return false
+            }
+        }
+    }
+
+
+    return true
+}
