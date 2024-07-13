@@ -1,6 +1,7 @@
 const abrirMenu = document.getElementById("abrir-menu")
 const cerrarMenu = document.getElementById("cerrar-menu")
 const menu = document.getElementById("menu-ul")
+const restanteMenu = document.getElementById("restante-menu")
 const main = document.getElementById("cont-main")
 const carritoSombra = document.getElementById("carrito-sombra")
 const carritoDatos = document.getElementById("carrito-datos")
@@ -11,21 +12,26 @@ let totalCarrito = 0
 const h3Total = document.getElementById("carrito-total")
 const enviarCarrito = document.getElementById("enviar-carrito")
 
+
+
 abrirMenu.addEventListener("click", () => {
     menu.style.display = "flex"
+    restanteMenu.style.display = "block"
 }
 )
 
-cerrarMenu.addEventListener("click", () => {
+cerrarMenu.addEventListener("click", cierreMenu = () => {
     menu.style.display = "none"
-
+    restanteMenu.style.display = "none"
 })
 
+restanteMenu.addEventListener("click", cierreMenu)
 
 
 addEventListener("resize", () => {
     if (Number(innerWidth) > 900) {
         menu.style.display = "flex"
+        restanteMenu.style.display = "block"
     }
     /*else {
         menu.style.display = "none"

@@ -72,6 +72,10 @@ nav {
     gap: 10px;
 }
 
+.restante-menu{
+    display: none;
+}
+
 .menu-ul div {
     display: none;
 }
@@ -376,6 +380,16 @@ footer div ul li a{
         padding-bottom: 50px;
         box-sizing: border-box;
         z-index: 1;
+    }
+
+    .restante-menu{
+        width: 50vw;
+        height: 100vh;
+        z-index: 1;
+        left: 0;
+        top:0;
+        display: none;
+        position: fixed;
     }
 
     .menu-ul div {

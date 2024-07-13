@@ -13,7 +13,7 @@ const datos = [
             tamaño: "Grande",
             precio: 1000,
             img: "../img/broches.png",
-            stock: false
+            stock: true
 
         },
         {

@@ -1,7 +1,47 @@
+const abrirMenu = document.getElementById("abrir-menu")
+const cerrarMenu = document.getElementById("cerrar-menu")
+const menu = document.getElementById("menu-ul")
+const restanteMenu = document.getElementById("restante-menu")
 let datosCarrito = []
 const contenedorArticulos = document.getElementById("cont-articulos")
 const pTotal=document.getElementById("total")
+const sombraForm=document.getElementById("sombra-form")
+const botonCerrarForm=document.getElementById("cerrar-form")
+const botonSiguiente=document.getElementById("botonSiguiente")
 let total=0
+const inputNombre=document.getElementById("nom")
+const inputApellido=document.getElementById("ape")
+const inputTelefono=document.getElementById("tel")
+const inputEmail=document.getElementById("email")
+const inputLocalizacion=document.getElementById("loc")
+const formEnvio=document.getElementById("form-envio")
+
+
+
+abrirMenu.addEventListener("click", () => {
+    menu.style.display = "flex"
+    restanteMenu.style.display = "block"
+}
+)
+
+cerrarMenu.addEventListener("click", cierreMenu = () => {
+    menu.style.display = "none"
+    restanteMenu.style.display = "none"
+})
+
+restanteMenu.addEventListener("click", cierreMenu)
+
+
+addEventListener("resize", () => {
+    if (Number(innerWidth) > 900) {
+        menu.style.display = "flex"
+        restanteMenu.style.display = "block"
+    }
+    /*else {
+        menu.style.display = "none"
+    }*/
+});
+
 
 
 function recarga() {
@@ -9,6 +49,7 @@ function recarga() {
         datosCarrito = JSON.parse(localStorage.getItem("datosCompra"))
     }
 
+    if(datosCarrito.length>0){
     
     for (let dato of datosCarrito) {
         let datoCorrespondiente=buscarCorrespondiente(dato)
@@ -22,7 +63,11 @@ function recarga() {
     }
 
     pTotal.innerText="$"+total
-
+}
+else{
+    document.getElementById("main").innerHTML=`<p class="no-hay-datos">No hay datos</p>`
+    botonSiguiente.remove()
+}
 
 }
 
@@ -66,3 +111,15 @@ function escribirDatos(nom, cant, totalProd) {
         <p class="cantidad">100</p>
         <p class="precio">$1020000</p>
     </article> */
+
+botonSiguiente.addEventListener("click",()=>{
+sombraForm.style.display="flex"
+})
+botonCerrarForm.addEventListener("click",()=>{
+    sombraForm.style.display="none"
+})
+
+formEnvio.addEventListener("submit",(evento)=>{
+evento.preventDefault()
+
+})
