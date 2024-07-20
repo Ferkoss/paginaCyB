@@ -29,10 +29,20 @@ const datos = [
             tamaño: "chico",
             precio: 1000,
             img: "../img/broches.png",
-            stock: false,
+            stock: true,
             colores: ["Rojo", "Verde", "Amarillo", "violeta"]
 
         }
-    ]
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
 ]
 

@@ -18,12 +18,17 @@
             <i class="fa-solid fa-xmark" id="cerrar-form"></i>
             <h2>Complete los datos</h2>
             <form action="" id="form-envio">
-                
-                <div class="form-item"><label for="nom">Nombre</label><input type="text" required id="nom" name="nom"></div>
-                <div class="form-item"><label for="ape">Apellido</label><input type="text" required id="ape" name="ape"></div>
-                <div class="form-item"><label for="tel">Teléfono</label><input type="number" required id="tel" name="tel" min="0"></div>
-                <div class="form-item"><label for="email">Email</label><input type="email" required id="mail" name="mail"></div>
-                <div class="form-item"><label for="loc">Localidad</label><input type="text" required id="loc" name="loc"></div>
+
+                <div class="form-item"><label for="nom">Nombre</label><input type="text" required id="nom" name="nom">
+                </div>
+                <div class="form-item"><label for="ape">Apellido</label><input type="text" required id="ape" name="ape">
+                </div>
+                <div class="form-item"><label for="tel">Teléfono</label><input type="number" required id="tel"
+                        name="tel" min="0"></div>
+                <div class="form-item"><label for="email">Email</label><input type="email" required id="email"
+                        name="mail"></div>
+                <div class="form-item"><label for="loc">Localidad</label><input type="text" required id="loc"
+                        name="loc"></div>
                 <button type="submit">Enviar</button>
             </form>
         </div>
@@ -42,15 +47,15 @@
             <ul class="menu-ul" id="menu-ul">
                 <div id="cerrar-menu"><i class="fa-solid fa-xmark"></i></div>
                 <li class="menu-li"><a href="broches.html">Broches</a></li>
-                <li class="menu-li"><a href="#">Set Infantil</a></li>
-                <li class="menu-li"><a href="#">Colitas de pelo</a></li>
-                <li class="menu-li"><a href="#">Vinchas</a></li>
-                <li class="menu-li"><a href="#">Tic Tac</a></li>
-                <li class="menu-li"><a href="#">Carteras</a></li>
-                <li class="menu-li"><a href="#">Billeteras Damas</a></li>
-                <li class="menu-li"><a href="#">Billeteras Caballeros</a></li>
-                <li class="menu-li"><a href="#">Mochilas</a></li>
-                <li class="menu-li"><a href="#">Riñoneras y Bandoleras</a></li>
+                <li class="menu-li"><a href="setInfantil.html">Set Infantil</a></li>
+                <li class="menu-li"><a href="colitaDePelo.html">Colitas de pelo</a></li>
+                <li class="menu-li"><a href="vinchas.html">Vinchas</a></li>
+                <li class="menu-li"><a href="ticTac.html">Tic Tac</a></li>
+                <li class="menu-li"><a href="cartera.html">Carteras</a></li>
+                <li class="menu-li"><a href="billeterasDamas.html">Billeteras Damas</a></li>
+                <li class="menu-li"><a href="billeteraCaballero.html">Billeteras Caballeros</a></li>
+                <li class="menu-li"><a href="mochila.html">Mochilas</a></li>
+                <li class="menu-li"><a href="riñoneraYBandolera.html">Riñoneras y Bandoleras</a></li>
             </ul>
             <div class="restante-menu" id="restante-menu"></div>
         </nav>
@@ -113,6 +118,12 @@
     <div class="div-boton"><button id="botonSiguiente">Siguiente</button></div>
 
 </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+    emailjs.init('_B3_jwoNht_6X9doT')
+</script>
 <script src="../datos/datos.js"></script>
 <script src="../js/carrito.js"></script>
-</htmp
+
+</html>

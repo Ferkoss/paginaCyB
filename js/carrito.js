@@ -15,7 +15,7 @@ const inputTelefono=document.getElementById("tel")
 const inputEmail=document.getElementById("email")
 const inputLocalizacion=document.getElementById("loc")
 const formEnvio=document.getElementById("form-envio")
-
+let resumenPedido=""
 
 
 abrirMenu.addEventListener("click", () => {
@@ -61,7 +61,7 @@ function recarga() {
             escribirDatos(datoCorrespondiente.nombre,dato.cantidad,prodTotal)
         }
     }
-
+    resumenPedido+="TOTAL $"+total
     pTotal.innerText="$"+total
 }
 else{
@@ -104,6 +104,10 @@ function escribirDatos(nom, cant, totalProd) {
     precio.innerText = "$"+totalProd
     article.appendChild(precio)
 
+    resumenPedido+="Producto: "+nom+"\n"
+    resumenPedido+="Cantidad: "+cant+"\n"
+    resumenPedido+="Total Producto: $"+totalProd+"\n"
+    resumenPedido+="---------------------------------------------------"+"\n\n"
 }
 
 /* <article>
@@ -121,5 +125,20 @@ botonCerrarForm.addEventListener("click",()=>{
 
 formEnvio.addEventListener("submit",(evento)=>{
 evento.preventDefault()
+
+/*console.log(resumenPedido)*/
+/*
+emailjs.send("service_rqfikac","template_gj0miaq",{
+    nombre: inputNombre.value,
+    apellido: inputApellido.value,
+    telefono: inputTelefono.value,
+    email: inputEmail.value,
+    localidad: inputLocalizacion.value,
+    pedido: resumenPedido,
+    });
+*/
+    localStorage.removeItem("datosCompra")
+    console.log("Datos Eliminados")
+    window.history.go(-1)
 
 })

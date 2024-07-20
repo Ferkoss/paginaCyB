@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caramelos y Burbujitas</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/broches.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
 </head>
 
 <body onload="recarga()">
@@ -17,7 +17,7 @@
         <div id="carrito-pantalla">
             <div id="cerrar-carrito"><i class="fa-solid fa-xmark"></i></div>
             <div id="carrito-datos">
-                <div class="carrito-articulo" id="codigo1">
+                <!--<div class="carrito-articulo" id="codigo1">
                     <img src="../img/WhatsApp Image 2023-04-17 at 17.48.40 (5).jpeg" alt="">
                     
                         <div class="precio">
@@ -36,22 +36,22 @@
                     <div class="cerrar-articulo" id="borrar-codigo1"><i class="fa-solid fa-xmark"></i></div>
                 </div>
                 <div class="carrito-articulo"></div>
-                <div class="carrito-articulo"></div>
+                <div class="carrito-articulo"></div>-->
 
             </div>
-            <h3 id="carrito-total">Total: $21321312321</h3>
+            <h3 id="carrito-total"></h3>
             <button type="button" id="enviar-carrito">Enviar</button>
         </div>
     </div>
-    
+
 
 
 
 
     <header>
 
-        <img src="../img/otros/CB.jpg" alt="" class="imagen-principal">
-        <h1 class="titulo">Caramelos y Burbujitas</h1>
+        <img src="../img/otros/CB.jpg" alt="" class="imagen-principal" onclick="location.assign(`index.html`)">
+        <h1 class="titulo" onclick="location.assign(`index.html`)">Caramelos y Burbujitas</h1>
         <i class="fa-solid fa-cart-shopping" id="icono-abrir-carrito"></i>
         <nav>
             <div class="icono" id="abrir-menu">
@@ -73,55 +73,53 @@
             </ul>
             <div class="restante-menu" id="restante-menu"></div>
         </nav>
-        
 
 
 
-        
+
+        </nav>
     </header>
 
-    <main>
-        <div class="contenedor-main">
-            <div class="contenedor-articulo" onclick="location.assign(`broches.html`)">
+    <main id="main">
+        <div class="contenedor-main" id="cont-main">
+
+
+            <div class="contenedor-articulo">
                 <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Broches</h3>
+                <div class="contenido-articulo">
+                    <h3>Broches</h3>
+                    <p>Broche Grande</p>
+                    <div class="cantidad-articulo">
+                        <label for="cant">Cantidad:</label>
+                        <input type="number">
+                    </div>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
             </div>
-            <div class="contenedor-articulo" onclick="location.assign(`setInfantil.html`)">
+
+            <div class="contenedor-articulo">
                 <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Set Infantil</h3>
+                <div class="contenido-articulo con-art-select">
+                    <h3>Broches</h3>
+                    <p>Broche Grande</p>
+                    <div class="cantidad-articulo">
+                        <label for="cant-">Cantidad:</label>
+                        <input type="number">
+                    </div>
+                    <div class="color-articulo">
+                        <label for="color-Broche.nombre">Ingrese su color:</label>
+                        <select name="color-Broche.nombre" id="color-Broche.nombre">
+                            <option value="" disabled selected>Ingrese su opcion</option>
+                            <option value="">Rojo</option>
+                            <option value="">Amarillo</option>
+                            <option value="">Verde</option>
+                        </select>
+                    </div>
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
             </div>
-            <div class="contenedor-articulo" onclick="location.assign(`colitaDePelo.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Colitas de pelo</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`vinchas.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Vinchas</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`ticTac.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Tic Tac</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`cartera.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Carteras</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`billeterasDamas.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Billeteras Damas</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`billeteraCaballero.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Billeteras Caballeros</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`mochila.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Mochilas</h3>
-            </div>
-            <div class="contenedor-articulo" onclick="location.assign(`riñoneraYBandolera.html`)">
-                <img src="../img/otros/imagen-fondo.png" alt="">
-                <h3>Riñoneras y Bandoleras</h3>
-            </div>
+
+            
 
         </div>
     </main>
@@ -140,7 +138,6 @@
             <div class="accesos">
                 <h3>Accesos</h3>
                 <ul>
-                    
                     <li class="menu-li"><a href="broches.html">Broches</a></li>
                     <li class="menu-li"><a href="setInfantil.html">Set Infantil</a></li>
                     <li class="menu-li"><a href="colitaDePelo.html">Colitas de pelo</a></li>
@@ -159,5 +156,5 @@
 
 </body>
 <script src="../datos/datos.js"></script>
-<script src="../js/index.js"></script>
+<script src="../js/articulo.js">let tipoDeDato=0;</script>
 </html>

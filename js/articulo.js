@@ -67,7 +67,7 @@ function recargaDatos() {
         datosCarrito = JSON.parse(localStorage.getItem("datosCompra"))
     }
 
-    for (let dato of datos[0]) {
+    for (let dato of datos[tipoDeDato]) {
 
         if (dato.stock) {
 
