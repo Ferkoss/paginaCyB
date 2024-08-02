@@ -16,6 +16,7 @@ const inputEmail=document.getElementById("email")
 const inputLocalizacion=document.getElementById("loc")
 const formEnvio=document.getElementById("form-envio")
 let resumenPedido=""
+const divFinalCompra=document.getElementById("final-compra")
 
 
 abrirMenu.addEventListener("click", () => {
@@ -127,7 +128,7 @@ formEnvio.addEventListener("submit",(evento)=>{
 evento.preventDefault()
 
 /*console.log(resumenPedido)*/
-/*
+
 emailjs.send("service_rqfikac","template_gj0miaq",{
     nombre: inputNombre.value,
     apellido: inputApellido.value,
@@ -136,9 +137,17 @@ emailjs.send("service_rqfikac","template_gj0miaq",{
     localidad: inputLocalizacion.value,
     pedido: resumenPedido,
     });
-*/
+
+
+
+    document.getElementById("contenedor-form").style.display="none"
+
     localStorage.removeItem("datosCompra")
     console.log("Datos Eliminados")
-    window.history.go(-1)
 
+    divFinalCompra.style.display="flex"
+
+    
 })
+
+

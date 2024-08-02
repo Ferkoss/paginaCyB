@@ -335,6 +335,37 @@ transition: border-color .3s, color .3s;
     font-weight: bold;
 }
 
+#final-compra{
+    background-color: white;
+    width: 80%;
+    height: 200px;
+    border-radius: 30px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+#final-compra h3{
+    font-size: 25px;
+}
+
+#final-compra button{
+    width: 150px;
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 30px;
+    background-color: white;
+}
+
+#final-compra button:hover{
+    border-color: goldenrod;
+    color: goldenrod;
+    transition: border-color .3s,color .3s;
+}
+
 @media(max-height:550px){
     .contenedor-form form{
         justify-content: flex-start;
